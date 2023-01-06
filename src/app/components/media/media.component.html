@@ -1,5 +1,5 @@
 <div>
-  <form class="search-form">
+  <form class="search-form" [formGroup]="searchForm" (ngSubmit)="searchMedia()">
     <mat-form-field class="keyword-input">
       <mat-label>Keyword</mat-label>
       <input type="search" matInput>
@@ -34,7 +34,8 @@
         </mat-form-field>
       </div>
     </mat-expansion-panel>
-    <button mat-raised-button color=primary (click)="findMedia($event)">Search</button>
+
+    <button type="submit" mat-raised-button color="primary">Search</button>
   </form>
 
   <div class="search-results">
@@ -43,5 +44,7 @@
     </mat-card>
   </div>
 
-  <mat-paginator [pageSizeOptions]="[50]" (page)="onPaginateChange($event)"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[20]"
+                 [length]="totalMediaItems"
+                 (page)="onPaginateChange($event)"></mat-paginator>
 </div>

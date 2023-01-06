@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {PageEvent} from "@angular/material/paginator";
+import {Media} from "../../shared/models/media.model";
+import {MediaService} from "../../services/media.service";
+import {StorageService} from "../../services/storage.service";
 
 @Component({
   selector: 'app-media',
@@ -7,11 +10,19 @@ import {PageEvent} from "@angular/material/paginator";
   styleUrls: ['./media.component.scss']
 })
 export class MediaComponent {
+  mediaItems: Array<Media> = [];
+  totalMediaItems: number = 0;
+  searchForm: any;
 
-  findMedia(event: Event) {
-    event.preventDefault();
-    console.log('results')
+  constructor(private mediaService: MediaService, private storageService: StorageService) {
+
   }
 
-  onPaginateChange($event: PageEvent) { }
+  onPaginateChange($event: PageEvent) {
+
+  }
+
+  searchMedia() {
+    console.log(this.searchForm);
+  }
 }

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import {PageEvent} from "@angular/material/paginator";
+import {User} from "../../shared/models/user.model";
+import {UsersService} from "../../services/users.service";
+import {StorageService} from "../../services/storage.service";
 
 @Component({
   selector: 'app-users',
@@ -7,5 +10,13 @@ import {PageEvent} from "@angular/material/paginator";
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
-  onPaginateChange($event: PageEvent) { }
+  users: Array<User>;
+  totalUsers: number;
+
+  constructor(private usersService: UsersService, private storageService: StorageService) {
+    this.users = [];
+    this.totalUsers = 0;
+    usersService.getAllUsers({page: 1});
+  }
+  onPaginateChange($event: PageEvent) {}
 }

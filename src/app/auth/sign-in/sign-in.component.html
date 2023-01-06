@@ -4,12 +4,12 @@
       <mat-card-title>Log in</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form>
+      <form [formGroup]="signInForm">
         <mat-form-field class="full-width">
-          <input  matInput  placeholder="Email" name="email">
+          <input type="email" formControlName="email" matInput placeholder="Email">
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input  matInput  placeholder="Password" name="password">
+          <input type="password" formControlName="password" matInput placeholder="Password">
         </mat-form-field>
       </form>
     </mat-card-content>

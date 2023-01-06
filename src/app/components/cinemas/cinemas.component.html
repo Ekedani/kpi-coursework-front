@@ -2,5 +2,7 @@
   <mat-card>
     <mat-card-content>Cinema</mat-card-content>
   </mat-card>
-  <mat-paginator [pageSizeOptions]="[20]" (page)=onPaginateChange($event)></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[20]"
+                 [length]="totalCinemas"
+                 (page)=onPaginateChange($event)></mat-paginator>
 </div>

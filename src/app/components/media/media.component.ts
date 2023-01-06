@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-media',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class MediaComponent {
 
+  findMedia(event: Event) {
+    event.preventDefault();
+    console.log('results')
+  }
+
+  onPaginateChange($event: PageEvent) { }
 }

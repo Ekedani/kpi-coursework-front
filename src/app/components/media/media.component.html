@@ -1,1 +1,47 @@
-<p>media works!</p>
+<div>
+  <form class="search-form">
+    <mat-form-field class="keyword-input">
+      <mat-label>Keyword</mat-label>
+      <input type="search" matInput>
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-icon matPrefix>filter_list</mat-icon>
+        Filters
+      </mat-expansion-panel-header>
+      <div>
+        <p>Years</p>
+        <mat-form-field class="keyword-input">
+          <mat-label>Year From</mat-label>
+          <input type="number" min="1000" max="3000" matInput>
+        </mat-form-field>
+        <mat-form-field class="keyword-input">
+          <mat-label>Year To</mat-label>
+          <input type="number" min="1000" max="3000" matInput>
+        </mat-form-field>
+      </div>
+      <div>
+        <p>Rating</p>
+        <mat-form-field class="keyword-input">
+          <mat-label>Rating From</mat-label>
+          <input type="number" min="0" max="10" matInput>
+        </mat-form-field>
+        <mat-form-field class="keyword-input">
+          <mat-label>Rating To</mat-label>
+          <input type="number" min="0" max="10" matInput>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+    <button mat-raised-button color=primary (click)="findMedia($event)">Search</button>
+  </form>
+
+  <div class="search-results">
+    <mat-card>
+      <mat-card-content>Media</mat-card-content>
+    </mat-card>
+  </div>
+
+  <mat-paginator [pageSizeOptions]="[50]" (page)="onPaginateChange($event)"></mat-paginator>
+</div>

@@ -1,1 +1,6 @@
-<p>cinemas works!</p>
+<div>
+  <mat-card>
+    <mat-card-content>Cinema</mat-card-content>
+  </mat-card>
+  <mat-paginator [pageSizeOptions]="[20]" (page)=onPaginateChange($event)></mat-paginator>
+</div>

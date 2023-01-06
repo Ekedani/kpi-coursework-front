@@ -1,1 +1,12 @@
-<p>navbar works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Cinemary</span>
+    <nav>
+      <a mat-button [routerLink]="['/media']">Media</a>
+      <a mat-button [routerLink]="['/cinemas']">Cinemas</a>
+      <a mat-button [routerLink]="['/users']">Users</a>
+      <a mat-button [routerLink]="['/profile']">Profile</a>
+      <a mat-button [routerLink]="['/signout']">Sign out</a>
+    </nav>
+  </mat-toolbar-row>
+</mat-toolbar>

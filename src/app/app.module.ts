@@ -13,6 +13,7 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {CoreModule} from "./core/core.module";
 import {SharedModule} from "./shared/shared.module";
 import {MaterialModule} from "./material.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {MaterialModule} from "./material.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     NoopAnimationsModule,
     CoreModule,
     SharedModule,

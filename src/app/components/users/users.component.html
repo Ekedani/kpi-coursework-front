@@ -1,1 +1,6 @@
-<p>users works!</p>
+<div>
+  <mat-card>
+    <mat-card-content>User</mat-card-content>
+  </mat-card>
+  <mat-paginator [pageSizeOptions]="[20]" (page)=onPaginateChange($event)></mat-paginator>
+</div>

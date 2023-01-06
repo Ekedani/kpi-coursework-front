@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {CinemasService} from "../../services/cinemas.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-cinemas',
@@ -8,4 +9,6 @@ import {CinemasService} from "../../services/cinemas.service";
 })
 export class CinemasComponent {
   constructor(private cinemasService: CinemasService) {}
+
+  onPaginateChange($event: PageEvent) { }
 }

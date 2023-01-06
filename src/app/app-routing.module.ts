@@ -9,11 +9,12 @@ import {CinemasComponent} from "./components/cinemas/cinemas.component";
 
 const routes: Routes = [
   {path: 'login', component: SignInComponent},
-  {path: 'signup', component: SignUpComponent},
+  {path: 'register', component: SignUpComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'media', component: MediaComponent},
   {path: 'cinemas', component: CinemasComponent},
   {path: 'users', component: UsersComponent},
+  {path: 'signout', redirectTo: 'login'}
 ];
 
 @NgModule({

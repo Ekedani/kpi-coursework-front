@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
-import {firstValueFrom} from "rxjs";
 import {StorageService} from "../../services/storage.service";
 
 @Component({
@@ -23,7 +22,6 @@ export class SignInComponent {
     this.authService.signIn({
       email,
       password
-    }).subscribe((res) => {this.storageService.saveToken(res.accessToken)
-    console.log(res.accessToken)});
+    }).subscribe((res) => {this.storageService.saveToken(res.accessToken)});
   }
 }

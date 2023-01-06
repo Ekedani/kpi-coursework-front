@@ -18,10 +18,10 @@
           <input  matInput  placeholder="Password" name="password">
         </mat-form-field>
       </form>
-      <a>Have an account?</a>
     </mat-card-content>
     <mat-card-actions>
       <button mat-flat-button (click)="signUp()" color="primary">Sign up</button>
     </mat-card-actions>
   </mat-card>
+  <p>Have an account? <a [routerLink]="['/login']">Log in</a></p>
 </div>

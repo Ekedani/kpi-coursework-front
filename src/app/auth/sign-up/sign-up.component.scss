@@ -1,6 +1,7 @@
 .mat-card-wrapper {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -8,7 +9,6 @@
 mat-card {
   min-width: 170px;
   max-width: 520px;
-  margin: auto;
 }
 
 mat-card-header {

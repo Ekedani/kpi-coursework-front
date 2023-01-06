@@ -1,3 +1,10 @@
+.mat-card-wrapper{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 mat-card{
   min-width: 170px;
   max-width: 520px;

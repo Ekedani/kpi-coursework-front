@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 export class SignUpComponent {
 
   signUp() {
-
+    throw new Error('error lol');
   }
 }

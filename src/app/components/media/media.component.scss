@@ -1,12 +1,21 @@
 .search-form {
-  width: 100%;
+  max-width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-
+  padding: 10px;
+  background-color: #DCDCDC;
   .keyword-input {
-    width: 30%;
+    width: 40%;
+    margin-right: 20px;
+  }
+  .filter-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
   }
 }
 
@@ -47,8 +56,7 @@
       width: 20%;
       flex-direction: column;
       justify-content: center;
-
-      a {
+      a, button {
         margin: 5px;
         width: 100%;
       }

@@ -12,6 +12,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./media.component.scss']
 })
 export class MediaComponent {
+  filtersShown: boolean = false;
   mediaItems: Array<Media> = [];
   total: number = 0;
   page = 1;
@@ -32,11 +33,15 @@ export class MediaComponent {
     ratingTo: new FormControl(''),
   })
 
+
   constructor(private mediaService: MediaService, private storageService: StorageService, private http: HttpClient) {
   }
 
   searchNewMedia() {
-    this.page = 1
+    if(!this.searchForm.value.keyword){
+      throw Error('Empty search request');
+    }
+    this.page = 1;
     for (let key in this.searchForm.value) {
       // @ts-ignore
       this.currentFilters[key] = this.searchForm.value[key];

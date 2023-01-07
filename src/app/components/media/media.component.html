@@ -6,12 +6,12 @@
       <mat-icon matPrefix>search</mat-icon>
     </mat-form-field>
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-icon matPrefix>filter_list</mat-icon>
-        Filters
-      </mat-expansion-panel-header>
-      <div>
+    <button [matMenuTriggerFor]="filterMenu" (click)="$event.preventDefault()" mat-stroked-button>
+      <mat-icon matPrefix>filter_list</mat-icon>
+      Filters
+    </button>
+    <mat-menu #filterMenu="matMenu" xPosition="before">
+      <div (click)="$event.stopPropagation()" class="filter-menu">
         <p>Years</p>
         <mat-form-field class="keyword-input">
           <mat-label>Year From</mat-label>
@@ -21,8 +21,6 @@
           <mat-label>Year To</mat-label>
           <input type="number" min="1000" max="3000" formControlName="yearTo" matInput>
         </mat-form-field>
-      </div>
-      <div>
         <p>Rating</p>
         <mat-form-field class="keyword-input">
           <mat-label>Rating From</mat-label>
@@ -33,12 +31,11 @@
           <input type="number" min="0" max="10" formControlName="ratingTo" matInput>
         </mat-form-field>
       </div>
-    </mat-expansion-panel>
-
+    </mat-menu>
     <button type="submit" mat-raised-button color="primary">Search</button>
   </form>
 
-  <div class="search-results">
+  <div class="search-results" *ngIf="mediaItems.length">
     <pagination-controls id="media"
                          (pageChange)="handlePageChange($event)"
                          [responsive]="true">
@@ -77,7 +74,10 @@
         <a *ngFor="let link of media.links | keyvalue"
            href="{{link.value}}"
            target="_blank"
-           mat-stroked-button> <mat-icon>videocam</mat-icon> {{link.key}}</a>
+           mat-stroked-button>
+          <mat-icon>videocam</mat-icon>
+          {{link.key}}</a>
+        <button mat-stroked-button color="primary">Details</button>
       </mat-card-actions>
     </mat-card>
   </div>

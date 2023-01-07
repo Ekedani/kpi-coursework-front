@@ -18,6 +18,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {LogOutComponent} from "./auth/log-out/logout.component";
 import {MatTableModule} from "@angular/material/table";
 import {NgxPaginationModule} from "ngx-pagination";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {NgxPaginationModule} from "ngx-pagination";
     ReactiveFormsModule,
     MatTableModule,
     NgxPaginationModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

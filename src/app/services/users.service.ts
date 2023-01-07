@@ -1,47 +1,60 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {StorageService} from "./storage.service";
-import {User} from "../shared/models/user.model";
-
-const USERS_API = `${'http://localhost:3000'}/api/users`;
+import {deleteFalsyValues} from "../shared/helpers/delete-falsy-values";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UsersService {
-  private headers: object = {'Content-Type': 'x-www-form-urlencoded'}
-  constructor(private http: HttpClient, private storageService: StorageService) {}
-
-  public getAllUsers(options: {page: number}){
-    const reqHeaders = new HttpHeaders({
-      ...this.headers,
-      'Authorization': `Bearer: ${this.storageService.getToken()}`
-    });
-    return this.http.get<{total: number}>(`${USERS_API}`)
+  private USERS_API: string = `${'http://localhost:3000'}/api/users`;
+  constructor(private http: HttpClient, private storage: StorageService) {
   }
 
-  public getUserById(id: string){
-    const reqHeaders = new HttpHeaders({
-      ...this.headers,
-      'Authorization': `Bearer: ${this.storageService.getToken()}`
-    });
-    return this.http.get<User>(`${USERS_API}/${id}`)
+  public getAllUsers(params: { page: string | undefined | null }) {
+    const headers = new HttpHeaders();
+    const token = this.storage.getToken();
+    if (token) {
+      headers.append('Authorization', `Bearer ${token}`);
+    }
+    const cleanedParams = deleteFalsyValues(params);
+    return this.http.get(`${this.USERS_API}`, {
+      headers,
+      params: cleanedParams,
+    })
   }
 
-  public deleteUserById(id: string){
-    const reqHeaders = new HttpHeaders({
-      ...this.headers,
-      'Authorization': `Bearer: ${this.storageService.getToken()}`
-    });
-    return this.http.delete(`${USERS_API}/${id}`)
+  public getUserById(id: string) {
+    const headers = new HttpHeaders();
+    const token = this.storage.getToken();
+    if (token) {
+      headers.append('Authorization', `Bearer ${token}`);
+    }
+    return this.http.get(`${this.USERS_API}/${id}`, {
+      headers
+    })
   }
 
-  public generateApiKeyById(id: string){
-    const reqHeaders = new HttpHeaders({
-      ...this.headers,
-      'Authorization': `Bearer: ${this.storageService.getToken()}`
+  public deleteUserById(id: string) {
+    const headers = new HttpHeaders();
+    const token = this.storage.getToken();
+    if (token) {
+      headers.append('Authorization', `Bearer ${token}`);
+    }
+    return this.http.delete(`${this.USERS_API}/${id}`, {
+      headers
     });
-    return this.http.post<string>(`${USERS_API}/${id}/api-key`, {})
+  }
+
+  public generateApiKeyById(id: string) {
+    const headers = new HttpHeaders();
+    const token = this.storage.getToken();
+    if (token) {
+      headers.append('Authorization', `Bearer ${token}`);
+    }
+    return this.http.post<{ apiKey: string }>(`${this.USERS_API}/${id}/api-key`, {}, {
+      headers
+    })
   }
 }

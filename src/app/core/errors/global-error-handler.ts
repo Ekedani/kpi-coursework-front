@@ -15,7 +15,6 @@ export class GlobalErrorHandler implements ErrorHandler {
       err = err.rejection;
     }
     console.log(err);
-    this.zone.run(() => this.errorDialogService.openDialog(err?.error?.message || err?.message || 'undefined error'));
-    console.error('[GLOBAL ERROR HANDLER] ', err);
+    this.zone.run(() => this.errorDialogService.openDialog(err?.error || err?.message || 'undefined error'));
   }
 }

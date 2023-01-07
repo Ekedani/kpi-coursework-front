@@ -23,10 +23,10 @@ export class SignUpComponent {
   signUp() {
     const {firstName, lastName, email, password} = this.signUpForm.value;
     this.authService.signUp({
-      firstName: firstName ?? '',
-      lastName: lastName ?? '',
-      email: email ?? '',
-      password: password ?? '',
+      firstName,
+      lastName,
+      email,
+      password,
     }).subscribe((res) => {
       this.storage.saveToken(res.accessToken)
     });

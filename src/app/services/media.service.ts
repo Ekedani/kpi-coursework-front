@@ -1,16 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {StorageService} from "./storage.service";
-import {Media} from "../shared/models/media.model";
 import {deleteFalsyValues} from "../shared/helpers/delete-falsy-values";
-
-const MEDIA_API = `${'http://localhost:3000'}/api/media`;
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaService {
-  constructor(private http: HttpClient, private storageService: StorageService) {
+  private MEDIA_API: string = `${'http://localhost:3000'}/api/media`;
+  constructor(private http: HttpClient, private storage: StorageService) {
   }
 
   public searchMedia(params: {
@@ -22,35 +20,39 @@ export class MediaService {
     page: string | undefined | null,
     itemsPerPage: string | undefined | null,
   }) {
+    const headers = new HttpHeaders();
+    const apiKey = this.storage.getApiKey();
+    if (apiKey) {
+      headers.append('x-api-key', apiKey);
+    }
     const cleanedParams = deleteFalsyValues(params);
-    const apiKey = this.storageService.getApiKey();
-    this.http.get<Media[]>(`${MEDIA_API}`, {
+    this.http.get(`${this.MEDIA_API}`, {
+      headers,
       params: cleanedParams,
     });
   }
 
   public getSingleMedia(params: { kinopoiskId: string | undefined, tmdbId: string | undefined }) {
+    const headers = new HttpHeaders();
+    const apiKey = this.storage.getApiKey();
+    if (apiKey) {
+      headers.append('x-api-key', apiKey);
+    }
     const cleanedParams = deleteFalsyValues(params);
-    const apiKey = this.storageService.getApiKey();
-    const headers = new HttpHeaders(JSON.stringify({
-      'Content-Type': 'x-www-form-urlencoded',
-      'x-api-key': apiKey,
-    }));
-    this.http.get<Media>(`${MEDIA_API}/single`, {
+    this.http.get(`${this.MEDIA_API}/single`, {
       params: cleanedParams,
       headers,
     });
   }
 
   public getSingleMediaRating(params: { kinopoiskId: string | undefined, tmdbId: string | undefined }) {
+    const headers = new HttpHeaders();
+    const apiKey = this.storage.getApiKey();
+    if (apiKey) {
+      headers.append('x-api-key', apiKey);
+    }
     const cleanedParams = deleteFalsyValues(params);
-    const apiKey = this.storageService.getApiKey();
-    const headers = new HttpHeaders(JSON.stringify({
-      'Content-Type': 'x-www-form-urlencoded',
-      'x-api-key': apiKey,
-    }));
-
-    this.http.get(`${MEDIA_API}/rating`, {
+    this.http.get(`${this.MEDIA_API}/rating`, {
       params: cleanedParams,
       headers
     });

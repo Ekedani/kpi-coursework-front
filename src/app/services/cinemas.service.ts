@@ -63,6 +63,9 @@ export class CinemasService {
     if (apiKey) {
       headers.append('x-api-key', apiKey);
     }
+    return this.http.get(`${this.CINEMAS_API}/${id}`, {
+      headers
+    });
   }
 
   updateCinema(id: string, body: {

@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {PageEvent} from "@angular/material/paginator";
 import {Media} from "../../shared/models/media.model";
 import {MediaService} from "../../services/media.service";
 import {StorageService} from "../../services/storage.service";
@@ -12,9 +11,15 @@ import {FormControl, FormGroup} from "@angular/forms";
 })
 export class MediaComponent {
   mediaItems: Array<Media> = [];
-  totalMediaItems: number = 0;
+  total: number = 0;
+  page = 1;
 
-  constructor(private mediaService: MediaService, private storageService: StorageService) {
+  currentFilters: { [key: string]: string | null | undefined } = {
+    keyword: undefined,
+    yearFrom: undefined,
+    yearTo: undefined,
+    ratingFrom: undefined,
+    ratingTo: undefined,
   }
 
   searchForm = new FormGroup({
@@ -25,19 +30,39 @@ export class MediaComponent {
     ratingTo: new FormControl(''),
   })
 
-  onPaginateChange($event: PageEvent) {
+  constructor(private mediaService: MediaService, private storageService: StorageService) {
   }
 
   searchMedia() {
-    const page = 1;
+    this.page = 1
+    for (let key in this.searchForm.value) {
+      // @ts-ignore
+      this.currentFilters[key] = this.searchForm.value[key];
+    }
+    console.log(this.currentFilters)
+  }
+
+  paginateMedia() {
     const {keyword, yearFrom, yearTo, ratingFrom, ratingTo} = this.searchForm.value;
-    /*this.mediaService.searchMedia({
-      page,
+  }
+
+  getMedia() {
+    const {keyword, yearFrom, yearTo, ratingFrom, ratingTo} = this.currentFilters;
+    this.mediaService.searchMedia({
       keyword,
       yearFrom,
       yearTo,
       ratingFrom,
       ratingTo,
-    });*/
+      page: this.page.toString(),
+      itemsPerPage: undefined,
+    }).subscribe(res => {
+      // @ts-ignore
+      this.mediaItems = res.items;
+    })
+  }
+
+  handlePageChange($event: number) {
+    this.page = $event;
   }
 }

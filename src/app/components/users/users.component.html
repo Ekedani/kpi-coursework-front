@@ -14,7 +14,7 @@
       <p>Email: {{user.email}}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-flat-button color="primary">
+      <button mat-flat-button color="primary" [disabled]="checkIfUsersId(user.id)">
         Kick
       </button>
     </mat-card-actions>

@@ -26,7 +26,7 @@ export class MediaService {
       headers.append('x-api-key', apiKey);
     }
     const cleanedParams = deleteFalsyValues(params);
-    this.http.get(`${this.MEDIA_API}`, {
+    return this.http.get(`${this.MEDIA_API}`, {
       headers,
       params: cleanedParams,
     });

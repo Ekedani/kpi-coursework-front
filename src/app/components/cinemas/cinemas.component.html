@@ -1,9 +1,9 @@
 <div>
+  <pagination-controls id="cinemas"
+                       (pageChange)="handlePageChange($event)"
+                       [responsive]="true">
+  </pagination-controls>
   <mat-card>
     <mat-card-content>Cinema</mat-card-content>
   </mat-card>
-  <mat-paginator [pageSizeOptions]="[20]"
-                 [length]="totalCinemas"
-                 (page)=onPaginateChange($event)
-                 *ngIf="totalCinemas"></mat-paginator>
 </div>

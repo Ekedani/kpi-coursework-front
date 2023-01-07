@@ -37,6 +37,21 @@ export class StorageService {
     return window.sessionStorage.getItem(this.API_KEY);
   }
 
+  getRole(): string | undefined{
+    try {
+    const token = this.getToken();
+    if (token) {
+      // @ts-ignore
+      const { role } = jwtDecode(token);
+      return role;
+    } else {
+      return undefined;
+    }
+  } catch (e) {
+    return undefined;
+  }
+  }
+
   public getUserId(): string | undefined {
     try {
       const token = this.getToken();

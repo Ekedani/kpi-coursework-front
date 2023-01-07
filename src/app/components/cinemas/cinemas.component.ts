@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {CinemasService} from "../../services/cinemas.service";
 import {PageEvent} from "@angular/material/paginator";
 import {Cinema} from "../../shared/models/cinema.model";
-import {StorageService} from "../../services/storage.service";
 
 @Component({
   selector: 'app-cinemas',
@@ -11,11 +10,14 @@ import {StorageService} from "../../services/storage.service";
 })
 export class CinemasComponent {
   cinemas: Array<Cinema> = [];
-  totalCinemas: number = 0;
+  total: number = 0;
+  page: number = 1;
 
-  constructor(private cinemasService: CinemasService, private storageService: StorageService) {
-
-  }
+  constructor(private cinemasService: CinemasService) {}
 
   onPaginateChange($event: PageEvent) { }
+
+  handlePageChange($event: number) {
+
+  }
 }

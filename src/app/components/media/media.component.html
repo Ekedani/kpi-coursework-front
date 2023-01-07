@@ -1,8 +1,8 @@
 <div>
   <form class="search-form" [formGroup]="searchForm" (ngSubmit)="searchMedia()">
     <mat-form-field class="keyword-input">
-      <mat-label>Keyword</mat-label>
-      <input type="search" matInput>
+      <mat-label>Search</mat-label>
+      <input type="search" formControlName="keyword" matInput>
       <mat-icon matPrefix>search</mat-icon>
     </mat-form-field>
 
@@ -15,22 +15,22 @@
         <p>Years</p>
         <mat-form-field class="keyword-input">
           <mat-label>Year From</mat-label>
-          <input type="number" min="1000" max="3000" matInput>
+          <input type="number" min="1000" max="3000" formControlName="yearFrom" matInput>
         </mat-form-field>
         <mat-form-field class="keyword-input">
           <mat-label>Year To</mat-label>
-          <input type="number" min="1000" max="3000" matInput>
+          <input type="number" min="1000" max="3000" formControlName="yearTo" matInput>
         </mat-form-field>
       </div>
       <div>
         <p>Rating</p>
         <mat-form-field class="keyword-input">
           <mat-label>Rating From</mat-label>
-          <input type="number" min="0" max="10" matInput>
+          <input type="number" min="0" max="10" formControlName="ratingFrom" matInput>
         </mat-form-field>
         <mat-form-field class="keyword-input">
           <mat-label>Rating To</mat-label>
-          <input type="number" min="0" max="10" matInput>
+          <input type="number" min="0" max="10" formControlName="ratingTo" matInput>
         </mat-form-field>
       </div>
     </mat-expansion-panel>
@@ -39,13 +39,13 @@
   </form>
 
   <div class="search-results">
-    <mat-card>
+    <pagination-controls id="media"
+                         (pageChange)="handlePageChange($event)"
+                         [responsive]="true">
+    </pagination-controls>
+    <mat-card *ngFor="let media of mediaItems |
+    paginate: { id: 'media', itemsPerPage: 20, currentPage: page,  totalItems: total }">
       <mat-card-content>Media</mat-card-content>
     </mat-card>
   </div>
-
-  <mat-paginator [pageSizeOptions]="[20]"
-                 [length]="totalMediaItems"
-                 (page)="onPaginateChange($event)"
-                 *ngIf="totalMediaItems"></mat-paginator>
 </div>

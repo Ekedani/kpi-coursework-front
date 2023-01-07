@@ -2,12 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {StorageService} from "./storage.service";
 import {deleteFalsyValues} from "../shared/helpers/delete-falsy-values";
+import {Media} from "../shared/models/media.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaService {
   private MEDIA_API: string = `${'http://localhost:3000'}/api/media`;
+
   constructor(private http: HttpClient, private storage: StorageService) {
   }
 
@@ -20,13 +22,18 @@ export class MediaService {
     page: string | undefined | null,
     itemsPerPage: string | undefined | null,
   }) {
-    const headers = new HttpHeaders();
+    let headers = new HttpHeaders();
     const apiKey = this.storage.getApiKey();
     if (apiKey) {
-      headers.append('x-api-key', apiKey);
+      headers = headers.append('x-api-key', apiKey);
     }
     const cleanedParams = deleteFalsyValues(params);
-    return this.http.get(`${this.MEDIA_API}`, {
+    console.log(JSON.stringify(cleanedParams));
+    return this.http.get<{
+      dataSoruces: string[],
+      items: Media[],
+      total: number,
+      pages: number }>(`${this.MEDIA_API}`, {
       headers,
       params: cleanedParams,
     });
@@ -36,10 +43,10 @@ export class MediaService {
     kinopoiskId: string | null | undefined,
     tmdbId: string | null | undefined
   }) {
-    const headers = new HttpHeaders();
+    let headers = new HttpHeaders();
     const apiKey = this.storage.getApiKey();
     if (apiKey) {
-      headers.append('x-api-key', apiKey);
+      headers = headers.append('x-api-key', apiKey);
     }
     const cleanedParams = deleteFalsyValues(params);
     this.http.get(`${this.MEDIA_API}/single`, {
@@ -52,10 +59,10 @@ export class MediaService {
     kinopoiskId: string | null | undefined,
     tmdbId: string | null | undefined
   }) {
-    const headers = new HttpHeaders();
+    let headers = new HttpHeaders();
     const apiKey = this.storage.getApiKey();
     if (apiKey) {
-      headers.append('x-api-key', apiKey);
+      headers = headers.append('x-api-key', apiKey);
     }
     const cleanedParams = deleteFalsyValues(params);
     this.http.get(`${this.MEDIA_API}/rating`, {

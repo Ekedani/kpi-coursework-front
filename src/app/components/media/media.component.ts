@@ -3,6 +3,8 @@ import {Media} from "../../shared/models/media.model";
 import {MediaService} from "../../services/media.service";
 import {StorageService} from "../../services/storage.service";
 import {FormControl, FormGroup} from "@angular/forms";
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-media',
@@ -30,20 +32,32 @@ export class MediaComponent {
     ratingTo: new FormControl(''),
   })
 
-  constructor(private mediaService: MediaService, private storageService: StorageService) {
+  constructor(private mediaService: MediaService, private storageService: StorageService, private http: HttpClient) {
   }
 
-  searchMedia() {
+  searchNewMedia() {
     this.page = 1
     for (let key in this.searchForm.value) {
       // @ts-ignore
       this.currentFilters[key] = this.searchForm.value[key];
     }
-    console.log(this.currentFilters)
+    this.searchMedia();
   }
 
-  paginateMedia() {
+  searchMedia() {
     const {keyword, yearFrom, yearTo, ratingFrom, ratingTo} = this.searchForm.value;
+    this.mediaService.searchMedia({
+      keyword,
+      yearFrom,
+      yearTo,
+      ratingFrom,
+      ratingTo,
+      page: this.page.toString(),
+      itemsPerPage: '20'
+    }).subscribe(res => {
+      this.mediaItems = res.items;
+      this.total = res.total;
+    })
   }
 
   getMedia() {
@@ -57,12 +71,16 @@ export class MediaComponent {
       page: this.page.toString(),
       itemsPerPage: undefined,
     }).subscribe(res => {
-      // @ts-ignore
       this.mediaItems = res.items;
     })
   }
 
+  getImage(imageUrl: string): Observable<Blob> {
+    return this.http.get(imageUrl, {responseType: 'blob'});
+  }
+
   handlePageChange($event: number) {
     this.page = $event;
+    this.getMedia();
   }
 }

@@ -18,7 +18,7 @@ export class UsersService {
       ...this.headers,
       'Authorization': `Bearer: ${this.storageService.getToken()}`
     });
-    return this.http.get<User[]>(`${USERS_API}`)
+    return this.http.get<{total: number}>(`${USERS_API}`)
   }
 
   public getUserById(id: string){

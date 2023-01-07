@@ -1,32 +1,34 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-
-const AUTH_API = `${'http://localhost:3000'}/api/auth`;
+import {StorageService} from "./storage.service";
+import {deleteFalsyValues} from "../shared/helpers/delete-falsy-values";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  constructor(private http: HttpClient) {
-  }
+  private AUTH_API: string = `${'http://localhost:3000'}/api/auth`;
 
-  signIn(body: { email: string | undefined | null, password: string | undefined | null }) {
-    // @ts-ignore
-    const encodedBody = new URLSearchParams(body);
+  constructor(private http: HttpClient, private storage: StorageService) {}
+
+  signIn(body: {
+    email: string | null | undefined,
+    password: string | null | undefined
+  }) {
+    const encodedBody = new URLSearchParams(deleteFalsyValues(body));
     const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-    console.log(headers);
-    return this.http.post<{accessToken: string}>(`${AUTH_API}/signin`, encodedBody, {headers});
+    return this.http.post<{ accessToken: string }>(`${this.AUTH_API}/signin`, encodedBody, {headers});
   }
 
   signUp(body: {
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
+    firstName: string | null | undefined,
+    lastName: string | null | undefined,
+    email: string | null | undefined,
+    password: string | null | undefined,
   }) {
-    const encodedBody = new URLSearchParams(body);
+    const encodedBody = new URLSearchParams(deleteFalsyValues(body));
     const headers = new HttpHeaders(JSON.stringify({'Content-Type': 'x-www-form-urlencoded'}));
-    return this.http.post<{accessToken: string}>(`${AUTH_API}/signup`, encodedBody, {headers});
+    return this.http.post<{ accessToken: string }>(`${this.AUTH_API}/signup`, encodedBody, {headers});
   }
 }

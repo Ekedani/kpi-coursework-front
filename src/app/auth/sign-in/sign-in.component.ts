@@ -9,7 +9,7 @@ import {StorageService} from "../../services/storage.service";
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
-  constructor(private authService: AuthService, private storageService: StorageService) {
+  constructor(private authService: AuthService, private storage: StorageService) {
   }
 
   signInForm = new FormGroup({
@@ -20,8 +20,8 @@ export class SignInComponent {
   async signIn() {
     const {email, password} = this.signInForm.value;
     this.authService.signIn({
-      email,
-      password
-    }).subscribe((res) => {this.storageService.saveToken(res.accessToken)});
+      email: email ?? '',
+      password: password ?? '',
+    }).subscribe((res) => {this.storage.saveToken(res.accessToken)});
   }
 }

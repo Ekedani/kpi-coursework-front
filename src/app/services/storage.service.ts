@@ -9,8 +9,7 @@ export class StorageService {
   private TOKEN_KEY: string = 'access-token';
   private USER_KEY: string = 'user';
 
-  constructor() {
-  }
+  constructor() {}
 
   public signOut(): void {
     window.sessionStorage.clear();

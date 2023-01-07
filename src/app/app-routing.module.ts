@@ -14,12 +14,13 @@ const routes: Routes = [
   {path: 'media', component: MediaComponent},
   {path: 'cinemas', component: CinemasComponent},
   {path: 'users', component: UsersComponent},
-  {path: 'signout', redirectTo: 'login'}
+  {path: '**', redirectTo: 'profile'}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {
 }

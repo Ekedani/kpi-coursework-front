@@ -10,13 +10,12 @@ import {StorageService} from "../../services/storage.service";
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
-  users: Array<User>;
-  totalUsers: number;
+  users: Array<User> = [];
+  totalUsers: number = 0;
 
   constructor(private usersService: UsersService, private storageService: StorageService) {
-    this.users = [];
-    this.totalUsers = 0;
     usersService.getAllUsers({page: 1});
   }
+
   onPaginateChange($event: PageEvent) {}
 }

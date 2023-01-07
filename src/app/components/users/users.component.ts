@@ -13,9 +13,7 @@ export class UsersComponent {
   users: Array<User> = [];
   totalUsers: number = 0;
 
-  constructor(private usersService: UsersService, private storageService: StorageService) {
-    usersService.getAllUsers({page: 1});
-  }
+  constructor(private usersService: UsersService, private storageService: StorageService) {}
 
   onPaginateChange($event: PageEvent) {}
 }

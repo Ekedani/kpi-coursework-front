@@ -15,12 +15,14 @@ import {SharedModule} from "./shared/shared.module";
 import {MaterialModule} from "./material.module";
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
+import {LogOutComponent} from "./auth/log-out/logout.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
     SignInComponent,
+    LogOutComponent,
     NavbarComponent,
     CinemasComponent,
     UsersComponent,

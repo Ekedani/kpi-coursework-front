@@ -32,7 +32,10 @@ export class MediaService {
     });
   }
 
-  public getSingleMedia(params: { kinopoiskId: string | undefined, tmdbId: string | undefined }) {
+  public getSingleMedia(params: {
+    kinopoiskId: string | null | undefined,
+    tmdbId: string | null | undefined
+  }) {
     const headers = new HttpHeaders();
     const apiKey = this.storage.getApiKey();
     if (apiKey) {
@@ -45,7 +48,10 @@ export class MediaService {
     });
   }
 
-  public getSingleMediaRating(params: { kinopoiskId: string | undefined, tmdbId: string | undefined }) {
+  public getSingleMediaRating(params: {
+    kinopoiskId: string | null | undefined,
+    tmdbId: string | null | undefined
+  }) {
     const headers = new HttpHeaders();
     const apiKey = this.storage.getApiKey();
     if (apiKey) {

@@ -4,18 +4,18 @@
       <mat-card-title>Register</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form>
+      <form [formGroup]="signUpForm">
         <mat-form-field class="full-width">
-          <input  matInput  placeholder="First name" name="firstName">
+          <input  matInput  placeholder="First name" formControlName="firstName">
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input  matInput  placeholder="Last name" name="lastName">
+          <input  matInput  placeholder="Last name" formControlName="lastName">
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input  matInput  placeholder="Email" name="email">
+          <input  matInput type="email"  placeholder="Email" formControlName="email">
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input  matInput  placeholder="Password" name="password">
+          <input  matInput type="password" placeholder="Password" formControlName="password">
         </mat-form-field>
       </form>
     </mat-card-content>

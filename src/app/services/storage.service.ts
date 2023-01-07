@@ -7,9 +7,10 @@ import jwtDecode from "jwt-decode";
 
 export class StorageService {
   private TOKEN_KEY: string = 'access-token';
-  private USER_KEY: string = 'user';
+  private API_KEY: string = 'api-key'
 
-  constructor() {}
+  constructor() {
+  }
 
   public signOut(): void {
     window.sessionStorage.clear();
@@ -17,11 +18,10 @@ export class StorageService {
 
   public saveToken(token: string): void {
     window.sessionStorage.setItem(this.TOKEN_KEY, token);
-    try {
-      const user = jwtDecode(token);
-      this.saveUser(JSON.stringify(user));
-    } catch (e) {
-      throw new Error('invalid token')
+    // @ts-ignore
+    const {apiKey} = jwtDecode(token);
+    if (apiKey) {
+      this.saveApiKey(apiKey);
     }
   }
 
@@ -29,35 +29,26 @@ export class StorageService {
     return window.sessionStorage.getItem(this.TOKEN_KEY);
   }
 
-  private saveUser(user: string): void {
-    window.sessionStorage.setItem(this.USER_KEY, user);
-  }
-
-  public getUser() {
-    const userString = window.sessionStorage.getItem(this.USER_KEY);
-    if (userString) {
-      try {
-        return JSON.parse(userString);
-      } catch (e) {
-        throw ('invalid user in storage');
-      }
-    } else {
-      return null;
-    }
-  }
-
   public saveApiKey(key: string): void {
-    const user = this.getUser();
-    if (user) {
-      user.apiKey = key;
-      this.saveUser(JSON.stringify(user));
-    } else {
-      throw ('invalid user in storage');
-    }
+    window.sessionStorage.setItem(this.API_KEY, key);
   }
 
-  public getApiKey(): string | undefined {
-    const user = this.getUser();
-    return user?.apiKey;
+  public getApiKey(): string | null {
+    return window.sessionStorage.getItem(this.API_KEY);
+  }
+
+  public getUserId(): string | undefined {
+    try {
+      const token = this.getToken();
+      if (token) {
+        // @ts-ignore
+        const { id } = jwtDecode(token);
+        return id;
+      } else {
+        return undefined;
+      }
+    } catch (e) {
+      return undefined;
+    }
   }
 }

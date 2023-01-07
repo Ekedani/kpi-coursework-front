@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {StorageService} from "./storage.service";
 import {deleteFalsyValues} from "../shared/helpers/delete-falsy-values";
+import {User} from "../shared/models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,10 @@ export class UsersService {
   }
 
   public getAllUsers(params: { page: string | undefined | null }) {
-    const headers = new HttpHeaders();
+    let headers = new HttpHeaders();
     const token = this.storage.getToken();
     if (token) {
-      headers.append('Authorization', `Bearer ${token}`);
+      headers = headers.append('Authorization', `Bearer ${token}`);
     }
     const cleanedParams = deleteFalsyValues(params);
     return this.http.get(`${this.USERS_API}`, {
@@ -26,21 +27,21 @@ export class UsersService {
   }
 
   public getUserById(id: string) {
-    const headers = new HttpHeaders();
+    let headers = new HttpHeaders();
     const token = this.storage.getToken();
     if (token) {
-      headers.append('Authorization', `Bearer ${token}`);
+      headers = headers.append('Authorization', `Bearer ${token}`);
     }
-    return this.http.get(`${this.USERS_API}/${id}`, {
+    return this.http.get<User>(`${this.USERS_API}/${id}`, {
       headers
     })
   }
 
   public deleteUserById(id: string) {
-    const headers = new HttpHeaders();
+    let headers = new HttpHeaders();
     const token = this.storage.getToken();
     if (token) {
-      headers.append('Authorization', `Bearer ${token}`);
+      headers = headers.append('Authorization', `Bearer ${token}`);
     }
     return this.http.delete(`${this.USERS_API}/${id}`, {
       headers
@@ -48,10 +49,10 @@ export class UsersService {
   }
 
   public generateApiKeyById(id: string) {
-    const headers = new HttpHeaders();
+    let headers = new HttpHeaders();
     const token = this.storage.getToken();
     if (token) {
-      headers.append('Authorization', `Bearer ${token}`);
+      headers = headers.append('Authorization', `Bearer ${token}`);
     }
     return this.http.post<{ apiKey: string }>(`${this.USERS_API}/${id}/api-key`, {}, {
       headers

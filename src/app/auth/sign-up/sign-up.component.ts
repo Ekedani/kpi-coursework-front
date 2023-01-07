@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {StorageService} from "../../services/storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-up',
@@ -10,7 +11,10 @@ import {StorageService} from "../../services/storage.service";
 })
 export class SignUpComponent {
 
-  constructor(private authService: AuthService, private storage: StorageService) {
+  constructor(
+    private authService: AuthService,
+    private storage: StorageService,
+    private router: Router) {
   }
 
   signUpForm = new FormGroup({
@@ -28,7 +32,8 @@ export class SignUpComponent {
       email,
       password,
     }).subscribe((res) => {
-      this.storage.saveToken(res.accessToken)
+      this.storage.saveToken(res.accessToken);
+      this.router.navigate(['/profile'])
     });
   }
 }

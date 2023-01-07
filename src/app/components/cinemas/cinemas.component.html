@@ -4,5 +4,6 @@
   </mat-card>
   <mat-paginator [pageSizeOptions]="[20]"
                  [length]="totalCinemas"
-                 (page)=onPaginateChange($event)></mat-paginator>
+                 (page)=onPaginateChange($event)
+                 *ngIf="totalCinemas"></mat-paginator>
 </div>

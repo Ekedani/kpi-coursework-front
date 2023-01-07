@@ -10,6 +10,7 @@ import {User} from "../shared/models/user.model";
 
 export class UsersService {
   private USERS_API: string = `${'http://localhost:3000'}/api/users`;
+
   constructor(private http: HttpClient, private storage: StorageService) {
   }
 
@@ -20,7 +21,7 @@ export class UsersService {
       headers = headers.append('Authorization', `Bearer ${token}`);
     }
     const cleanedParams = deleteFalsyValues(params);
-    return this.http.get(`${this.USERS_API}`, {
+    return this.http.get<{ data: User[], total: number, pages: number }>(`${this.USERS_API}`, {
       headers,
       params: cleanedParams,
     })

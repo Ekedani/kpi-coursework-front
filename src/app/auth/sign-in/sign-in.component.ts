@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {StorageService} from "../../services/storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
@@ -9,7 +10,7 @@ import {StorageService} from "../../services/storage.service";
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
-  constructor(private authService: AuthService, private storage: StorageService) {
+  constructor(private authService: AuthService, private storage: StorageService, private router: Router) {
   }
 
   signInForm = new FormGroup({
@@ -17,11 +18,14 @@ export class SignInComponent {
     password: new FormControl(''),
   })
 
-  async signIn() {
+   signIn() {
     const {email, password} = this.signInForm.value;
     this.authService.signIn({
       email: email ?? '',
       password: password ?? '',
-    }).subscribe((res) => {this.storage.saveToken(res.accessToken)});
+    }).subscribe((res) => {
+      this.storage.saveToken(res.accessToken);
+      this.router.navigate(['/profile'])
+    });
   }
 }

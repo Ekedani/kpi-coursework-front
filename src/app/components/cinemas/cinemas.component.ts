@@ -13,7 +13,9 @@ export class CinemasComponent {
   cinemas: Array<Cinema> = [];
   totalCinemas: number = 0;
 
-  constructor(private cinemasService: CinemasService, private storageService: StorageService) {}
+  constructor(private cinemasService: CinemasService, private storageService: StorageService) {
+
+  }
 
   onPaginateChange($event: PageEvent) { }
 }

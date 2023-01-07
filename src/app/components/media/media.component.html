@@ -46,5 +46,6 @@
 
   <mat-paginator [pageSizeOptions]="[20]"
                  [length]="totalMediaItems"
-                 (page)="onPaginateChange($event)"></mat-paginator>
+                 (page)="onPaginateChange($event)"
+                 *ngIf="totalMediaItems"></mat-paginator>
 </div>

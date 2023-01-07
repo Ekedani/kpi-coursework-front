@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
-import {PageEvent} from "@angular/material/paginator";
+import {Component} from '@angular/core';
 import {User} from "../../shared/models/user.model";
 import {UsersService} from "../../services/users.service";
-import {StorageService} from "../../services/storage.service";
 
 @Component({
   selector: 'app-users',
@@ -11,9 +9,25 @@ import {StorageService} from "../../services/storage.service";
 })
 export class UsersComponent {
   users: Array<User> = [];
-  totalUsers: number = 0;
+  total: number = 0;
+  page: number = 1;
 
-  constructor(private usersService: UsersService, private storageService: StorageService) {}
+  constructor(private usersService: UsersService) {
+  }
 
-  onPaginateChange($event: PageEvent) {}
+  ngOnInit() {
+    this.getUsers();
+  }
+
+  getUsers() {
+    this.usersService.getAllUsers({page: this.page.toString()}).subscribe(res => {
+      this.users = res.data;
+      this.total = res.total;
+    })
+  }
+
+  handlePageChange($event: number) {
+    this.page = $event;
+    this.getUsers();
+  }
 }

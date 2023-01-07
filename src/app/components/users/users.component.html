@@ -1,8 +1,22 @@
 <div>
-  <mat-card>
-    <mat-card-content>User</mat-card-content>
+  <pagination-controls id="users"
+    (pageChange)="handlePageChange($event)"
+    [responsive]="true">
+  </pagination-controls>
+  <mat-card class="user-card" *ngFor="let user of users |
+  paginate: { id: 'users', itemsPerPage: 20, currentPage: page,  totalItems: total }">
+    <mat-card-header>
+      <mat-card-title>{{user.firstName}} {{user.lastName}} </mat-card-title>
+      <mat-card-subtitle>{{user.role}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>API key: {{user.apiKey ?? 'Non-generated'}} </p>
+      <p>Email: {{user.email}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="primary">
+        Kick
+      </button>
+    </mat-card-actions>
   </mat-card>
-  <mat-paginator [pageSizeOptions]="[20]"
-                 [length]="totalUsers"
-                 (page)=onPaginateChange($event)></mat-paginator>
 </div>

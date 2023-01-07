@@ -16,6 +16,8 @@ import {MaterialModule} from "./material.module";
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {LogOutComponent} from "./auth/log-out/logout.component";
+import {MatTableModule} from "@angular/material/table";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import {LogOutComponent} from "./auth/log-out/logout.component";
     SharedModule,
     MaterialModule,
     ReactiveFormsModule,
+    MatTableModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

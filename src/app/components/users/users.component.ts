@@ -32,7 +32,15 @@ export class UsersComponent {
     this.getUsers();
   }
 
-  checkIfUsersId(id: string | undefined){
+  checkIfUsersId(id: string | undefined) {
     return id === this.storage.getUserId();
+  }
+
+  kickUser(id: string | undefined) {
+    if (id) {
+      this.usersService.deleteUserById(id).subscribe(res => {
+
+      });
+    }
   }
 }

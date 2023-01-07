@@ -5,17 +5,27 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
+  text-align:center;
+  margin: 0 auto;
   background-color: #DCDCDC;
+
   .keyword-input {
-    width: 40%;
-    margin-right: 20px;
-  }
-  .filter-menu{
+    width: 50%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+  }
+  button {
+    font-size: 14px;
+    height: 42px;
+    margin: 10px;
+  }
+  mat-menu{
+    .filter-menu{
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 <div>
   <form class="search-form" [formGroup]="searchForm" (ngSubmit)="searchNewMedia()">
+
     <mat-form-field class="keyword-input">
       <mat-label>Search</mat-label>
       <input type="search" formControlName="keyword" matInput>
@@ -11,7 +12,7 @@
       Filters
     </button>
     <mat-menu #filterMenu="matMenu" xPosition="before">
-      <div (click)="$event.stopPropagation()" class="filter-menu">
+      <div class="filter-menu" (click)="$event.stopPropagation()">
         <p>Years</p>
         <mat-form-field class="keyword-input">
           <mat-label>Year From</mat-label>

@@ -1,9 +1,9 @@
-<div>
+<div class="search-results" *ngIf="total">
   <pagination-controls id="cinemas"
                        (pageChange)="handlePageChange($event)"
                        [responsive]="true">
   </pagination-controls>
-  <mat-card>
+  <mat-card *ngFor="let cinema of cinemas">
     <mat-card-content>Cinema</mat-card-content>
   </mat-card>
 </div>

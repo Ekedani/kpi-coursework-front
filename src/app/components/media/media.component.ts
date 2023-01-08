@@ -1,7 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {Media} from "../../shared/models/media.model";
 import {MediaService} from "../../services/media.service";
-import {StorageService} from "../../services/storage.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
@@ -34,7 +33,7 @@ export class MediaComponent {
   })
 
 
-  constructor(private mediaService: MediaService, private storageService: StorageService, private http: HttpClient) {
+  constructor(private mediaService: MediaService, private http: HttpClient) {
   }
 
   searchNewMedia() {

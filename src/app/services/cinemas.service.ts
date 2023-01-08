@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {StorageService} from "./storage.service";
 import {deleteFalsyValues} from "../shared/helpers/delete-falsy-values";
+import {Cinema} from "../shared/models/cinema.model";
 
 
 @Injectable({
@@ -17,31 +18,35 @@ export class CinemasService {
   getAllCinemas(params: {
     page: string | null | undefined
   }) {
-    const headers = new HttpHeaders();
+    let headers = new HttpHeaders();
     const apiKey = this.storage.getApiKey();
     if (apiKey) {
-      headers.append('x-api-key', apiKey);
+      headers = headers.append('x-api-key', apiKey);
     }
     const cleanedParams = deleteFalsyValues(params);
-    return this.http.get(`${this.CINEMAS_API}`, {
+    return this.http.get<{ total: number, data: Cinema[], pages: number }>(`${this.CINEMAS_API}`, {
       headers,
       params: cleanedParams
     });
   }
 
   createCinema(body: {
-    title: string | null | undefined,
+    name: string | null | undefined,
     description: string | null | undefined,
     link: string | null | undefined,
-    /*picture*/
+    picture: object | string | null | undefined,
   }) {
-    const headers = new HttpHeaders({'Content-Type': 'multipart/form-data'});
+    let headers = new HttpHeaders();
     const token = this.storage.getToken();
     if (token) {
-      headers.append('Authorization', `Bearer ${token}`);
+      headers = headers.append('Authorization', `Bearer ${token}`);
     }
     const cleanedBody = deleteFalsyValues(body);
-    return this.http.post(`${this.CINEMAS_API}`, cleanedBody, {
+    const formData = new FormData();
+    for(let key in cleanedBody){
+      formData.append(key, cleanedBody[key]);
+    }
+    return this.http.post(`${this.CINEMAS_API}`, formData, {
       headers,
     });
   }
@@ -69,27 +74,31 @@ export class CinemasService {
   }
 
   updateCinema(id: string, body: {
-    title: string | null | undefined,
+    name: string | null | undefined,
     description: string | null | undefined,
     link: string | null | undefined,
-    /*picture*/
+    picture: object | string | null | undefined,
   }) {
-    const headers = new HttpHeaders({'Content-Type': 'multipart/form-data'});
+    let headers = new HttpHeaders();
     const token = this.storage.getToken();
     if (token) {
-      headers.append('Authorization', `Bearer ${token}`);
+      headers = headers.append('Authorization', `Bearer ${token}`);
     }
     const cleanedBody = deleteFalsyValues(body);
+    const formData = new FormData();
+    for(let key in cleanedBody){
+      formData.append(key, cleanedBody[key]);
+    }
     return this.http.patch(`${this.CINEMAS_API}/${id}`, cleanedBody, {
       headers,
     });
   }
 
   deleteCinema(id: string) {
-    const headers = new HttpHeaders({'Content-Type': 'multipart/form-data'});
+    let headers = new HttpHeaders();
     const token = this.storage.getToken();
     if (token) {
-      headers.append('Authorization', `Bearer ${token}`);
+      headers = headers.append('Authorization', `Bearer ${token}`);
     }
     return this.http.delete(`${this.CINEMAS_API}/${id}`, {
       headers

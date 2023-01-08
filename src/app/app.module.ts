@@ -6,7 +6,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {SignUpComponent} from './auth/sign-up/sign-up.component';
 import {SignInComponent} from './auth/sign-in/sign-in.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
-import {CinemasComponent} from './components/cinemas/cinemas.component';
+import {CinemaDialog, CinemasComponent} from './components/cinemas/cinemas.component';
 import {UsersComponent} from './components/users/users.component';
 import {MediaComponent} from './components/media/media.component';
 import {ProfileComponent} from './components/profile/profile.component';
@@ -14,7 +14,7 @@ import {CoreModule} from "./core/core.module";
 import {SharedModule} from "./shared/shared.module";
 import {MaterialModule} from "./material.module";
 import {HttpClientModule} from "@angular/common/http";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LogOutComponent} from "./auth/log-out/logout.component";
 import {MatTableModule} from "@angular/material/table";
 import {NgxPaginationModule} from "ngx-pagination";
@@ -31,6 +31,7 @@ import {MatMenuModule} from "@angular/material/menu";
     UsersComponent,
     MediaComponent,
     ProfileComponent,
+    CinemaDialog,
  ],
   imports: [
     BrowserModule,
@@ -44,6 +45,7 @@ import {MatMenuModule} from "@angular/material/menu";
     MatTableModule,
     NgxPaginationModule,
     MatMenuModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

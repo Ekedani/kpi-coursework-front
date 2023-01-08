@@ -8,7 +8,7 @@
   </pagination-controls>
   <mat-card *ngFor="let cinema of cinemas |
   paginate: { id: 'cinemas', itemsPerPage: 20, currentPage: page,  totalItems: total }">
-    <img mat-card-image src="" onerror="this.src='./assets/images/noimage.jpg';">
+    <img mat-card-image src="{{cinema.picture}}" onerror="this.src='./assets/images/noimage.jpg';">
     <div class="search-info">
       <mat-card-header>
         <mat-card-title>

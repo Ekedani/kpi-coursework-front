@@ -51,7 +51,7 @@ export class CinemasService {
     });
   }
 
-  getCinemaById(id: string) {
+  get(id: string) {
     const headers = new HttpHeaders();
     const apiKey = this.storage.getApiKey();
     if (apiKey) {
@@ -63,13 +63,15 @@ export class CinemasService {
   }
 
   getCinemaPicture(id: string) {
-    const headers = new HttpHeaders();
+    let headers = new HttpHeaders();
     const apiKey = this.storage.getApiKey();
     if (apiKey) {
-      headers.append('x-api-key', apiKey);
+      headers = headers.append('x-api-key', apiKey);
     }
-    return this.http.get(`${this.CINEMAS_API}/${id}`, {
-      headers
+    return this.http.get<Blob>(`${this.CINEMAS_API}/${id}/picture`, {
+      headers,
+      // @ts-ignore
+      responseType: 'blob' as 'blob'
     });
   }
 
@@ -89,7 +91,7 @@ export class CinemasService {
     for(let key in cleanedBody){
       formData.append(key, cleanedBody[key]);
     }
-    return this.http.patch(`${this.CINEMAS_API}/${id}`, cleanedBody, {
+    return this.http.patch(`${this.CINEMAS_API}/${id}`, formData, {
       headers,
     });
   }

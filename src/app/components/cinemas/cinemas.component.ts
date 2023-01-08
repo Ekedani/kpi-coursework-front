@@ -11,6 +11,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog
 })
 export class CinemasComponent {
   cinemas: Array<Cinema> = [];
+
   total: number = 0;
   page: number = 1;
 
@@ -25,7 +26,23 @@ export class CinemasComponent {
     this.cinemasService.getAllCinemas({page: this.page.toString()}).subscribe(res => {
       this.cinemas = res.data;
       this.total = res.total;
+      this.getImages();
     });
+  }
+
+  getImages(){
+    this.cinemas.forEach(cinema => {
+      if(cinema.picture){
+        this.cinemasService.getCinemaPicture(cinema.id).subscribe(res => {
+          const reader = new FileReader();
+          // @ts-ignore
+          reader.readAsDataURL(res);
+          reader.onloadend = function() {
+            cinema.picture = reader.result;
+          }
+        })
+      }
+    })
   }
 
   handlePageChange($event: number) {

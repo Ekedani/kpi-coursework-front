@@ -11,10 +11,13 @@ export class GlobalErrorHandler implements ErrorHandler {
   }
 
   handleError(err: any) {
-   /* if (!(err instanceof HttpErrorResponse)) {
+    if (err instanceof HttpErrorResponse) {
+      const message = `${err.message}; Status: ${err.error.statusCode}; Description: ${err.error.message}`
+      err = new Error(message);
+    }
+    if (err.rejection) {
       err = err.rejection;
-    }*/
-    console.log(err);
-    this.zone.run(() => this.errorDialogService.openDialog(err?.error || err?.message || 'undefined error'));
+    }
+    this.zone.run(() => this.errorDialogService.openDialog(err?.message ?? 'Undefined error'));
   }
 }

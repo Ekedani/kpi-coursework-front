@@ -1,4 +1,6 @@
-export class Media {
+import {Media} from "./media.model";
+
+export class DetailedMedia extends Media {
   constructor(param: {
     alternativeNames: any;
     nameOriginal: string;
@@ -10,7 +12,11 @@ export class Media {
     rating: any;
     ids: any;
     links: any;
+    overview?: string;
+    budget?: number;
+    originalLanguage?: string;
   }) {
+    super(param);
     this.sources = param.sources;
     this.nameOriginal = param.nameOriginal;
     this.alternativeNames = param.alternativeNames;
@@ -21,25 +27,19 @@ export class Media {
     this.ids = param.ids;
     this.images = param.images;
     this.links = param.links;
+    this.budget = param.budget;
+    this.overview = param.overview;
+    this.originalLanguage = param.originalLanguage;
+    this.budget = param.budget;
+    this.overview = param.overview;
+    this.originalLanguage = param.originalLanguage;
     if (this.rating["average"]) {
       this.rating["average"] = +this.rating["average"].toFixed(2);
     }
   }
 
-  sources: Array<string>;
-  nameOriginal: string | null;
-  alternativeNames: Array<string>;
-  year: number | null;
-  imdbId: string | null;
-  rating: {
-    [service: string]: number;
-  };
-  genres: Array<string>;
-  ids: {
-    [service: string]: string;
-  };
-  images: Array<string>;
-  links: {
-    [service: string]: string;
-  };
+  overview?: string;
+  budget?: number;
+  originalLanguage?: string;
+
 }

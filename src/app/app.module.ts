@@ -8,7 +8,7 @@ import {SignInComponent} from './auth/sign-in/sign-in.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {CinemaDialog, CinemasComponent} from './components/cinemas/cinemas.component';
 import {UsersComponent} from './components/users/users.component';
-import {MediaComponent} from './components/media/media.component';
+import {DetailMediaDialog, MediaComponent} from './components/media/media.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {CoreModule} from "./core/core.module";
 import {SharedModule} from "./shared/shared.module";
@@ -19,6 +19,7 @@ import {LogOutComponent} from "./auth/log-out/logout.component";
 import {MatTableModule} from "@angular/material/table";
 import {NgxPaginationModule} from "ngx-pagination";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatTreeModule} from "@angular/material/tree";
 
 @NgModule({
   declarations: [
@@ -32,21 +33,23 @@ import {MatMenuModule} from "@angular/material/menu";
     MediaComponent,
     ProfileComponent,
     CinemaDialog,
+    DetailMediaDialog,
  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    NoopAnimationsModule,
-    CoreModule,
-    SharedModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    NgxPaginationModule,
-    MatMenuModule,
-    FormsModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        NoopAnimationsModule,
+        CoreModule,
+        SharedModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        NgxPaginationModule,
+        MatMenuModule,
+        FormsModule,
+        MatTreeModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

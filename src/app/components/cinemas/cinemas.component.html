@@ -21,8 +21,8 @@
       </mat-card-content>
     </div>
     <mat-card-actions>
-      <button mat-stroked-button color="primary" (click)="deleteCinema()" *ngIf="userIsAdmin">Delete</button>
-      <button mat-stroked-button color="primary" (click)="editCinema(cinema)" *ngIf="userIsAdmin">Edit</button>
+      <button mat-stroked-button color="primary" (click)="deleteCinema(cinema.id)" *ngIf="userIsAdmin()">Delete</button>
+      <button mat-stroked-button color="primary" (click)="editCinema(cinema)" *ngIf="userIsAdmin()">Edit</button>
     </mat-card-actions>
   </mat-card>
 </div>

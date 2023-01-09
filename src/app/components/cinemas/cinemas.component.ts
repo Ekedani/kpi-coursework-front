@@ -11,7 +11,6 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog
 })
 export class CinemasComponent {
   cinemas: Array<Cinema> = [];
-
   total: number = 0;
   page: number = 1;
 
@@ -30,14 +29,14 @@ export class CinemasComponent {
     });
   }
 
-  getImages(){
+  getImages() {
     this.cinemas.forEach(cinema => {
-      if(cinema.picture){
+      if (cinema.picture) {
         this.cinemasService.getCinemaPicture(cinema.id).subscribe(res => {
           const reader = new FileReader();
           // @ts-ignore
           reader.readAsDataURL(res);
-          reader.onloadend = function() {
+          reader.onloadend = function () {
             cinema.picture = reader.result;
           }
         })
@@ -66,7 +65,7 @@ export class CinemasComponent {
           link: res.link,
           picture: res.picture,
         }).subscribe(res => {
-          console.log(res);
+          this.getCinemas();
         })
       }
     })
@@ -84,13 +83,18 @@ export class CinemasComponent {
           link: res.link,
           picture: res.picture,
         }).subscribe(res => {
-          console.log(res);
+          this.getCinemas();
         })
       }
     })
   }
 
-  deleteCinema() {
+  deleteCinema(id: string) {
+    if(id) {
+      this.cinemasService.deleteCinema(id).subscribe(res => {
+        this.getCinemas();
+      });
+    }
   }
 }
 

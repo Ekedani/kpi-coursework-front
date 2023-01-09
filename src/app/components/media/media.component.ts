@@ -4,6 +4,8 @@ import {MediaService} from "../../services/media.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {DetailedMedia} from "../../shared/models/detailed-media";
 
 @Component({
   selector: 'app-media',
@@ -33,11 +35,11 @@ export class MediaComponent {
   })
 
 
-  constructor(private mediaService: MediaService, private http: HttpClient) {
+  constructor(private mediaService: MediaService, private http: HttpClient, public dialog: MatDialog) {
   }
 
   searchNewMedia() {
-    if(!this.searchForm.value.keyword){
+    if (!this.searchForm.value.keyword) {
       throw Error('Empty search request');
     }
     this.page = 1;
@@ -86,5 +88,32 @@ export class MediaComponent {
   handlePageChange($event: number) {
     this.page = $event;
     this.getMedia();
+  }
+
+  getDetails(ids: { [p: string]: string }) {
+    const {kinopoisk: kinopoiskId, tmdb: tmdbId} = ids;
+    this.mediaService.getSingleMedia({kinopoiskId, tmdbId}).subscribe(res => {
+      const dialogRef = this.dialog.open(DetailMediaDialog, {
+        data: {
+          media: res.aggregatedItem
+        }
+      });
+    });
+  }
+}
+
+@Component({
+  selector: 'app-detail-media-dialog',
+  templateUrl: 'detail-media.component.html',
+  styleUrls: ['./detail-media.component.scss']
+})
+
+export class DetailMediaDialog {
+  constructor(public dialogRef: MatDialogRef<DetailMediaDialog>,
+              @Inject(MAT_DIALOG_DATA) public data: { media: DetailedMedia }) {
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }

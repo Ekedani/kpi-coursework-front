@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {StorageService} from "./storage.service";
 import {deleteFalsyValues} from "../shared/helpers/delete-falsy-values";
 import {Media} from "../shared/models/media.model";
+import {DetailedMedia} from "../shared/models/detailed-media";
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +29,12 @@ export class MediaService {
       headers = headers.append('x-api-key', apiKey);
     }
     const cleanedParams = deleteFalsyValues(params);
-    console.log(JSON.stringify(cleanedParams));
     return this.http.get<{
       dataSoruces: string[],
       items: Media[],
       total: number,
-      pages: number }>(`${this.MEDIA_API}`, {
+      pages: number
+    }>(`${this.MEDIA_API}`, {
       headers,
       params: cleanedParams,
     });
@@ -49,7 +50,7 @@ export class MediaService {
       headers = headers.append('x-api-key', apiKey);
     }
     const cleanedParams = deleteFalsyValues(params);
-    this.http.get(`${this.MEDIA_API}/single`, {
+    return this.http.get<{ aggregatedItem: DetailedMedia }>(`${this.MEDIA_API}/single`, {
       params: cleanedParams,
       headers,
     });
@@ -65,7 +66,7 @@ export class MediaService {
       headers = headers.append('x-api-key', apiKey);
     }
     const cleanedParams = deleteFalsyValues(params);
-    this.http.get(`${this.MEDIA_API}/rating`, {
+    this.http.get<{rating: {[service: string] : number}}>(`${this.MEDIA_API}/single/rating`, {
       params: cleanedParams,
       headers
     });

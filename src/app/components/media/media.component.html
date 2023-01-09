@@ -78,7 +78,7 @@
            mat-stroked-button>
           <mat-icon>videocam</mat-icon>
           {{link.key}}</a>
-        <button mat-stroked-button color="primary">Details</button>
+        <button mat-stroked-button color="primary" (click)="getDetails(media.ids)">Details</button>
       </mat-card-actions>
     </mat-card>
   </div>

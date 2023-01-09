@@ -1,0 +1,67 @@
+<mat-card>
+  <img mat-card-image src="{{data.media.images.slice(-1)[0]}}" onerror="this.src='./assets/images/noimage.jpg';" alt="poster">
+  <main>
+    <mat-card-header>
+      <mat-card-title>
+        {{data.media.nameOriginal}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{data.media.alternativeNames[0]}}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <table>
+        <tbody>
+        <tr>
+          <td>Year</td>
+          <td>{{data.media.year ?? 'Unknown'}}</td>
+        </tr>
+        <tr>
+          <td>Genres</td>
+          <td>
+            <span class="genre" *ngFor="let genre of data.media.genres"> {{genre}} </span>
+          </td>
+        </tr>
+        <tr>
+          <td>Overview</td>
+          <td>{{data.media.overview ?? 'No overview'}}</td>
+        </tr>
+        <tr>
+          <td>Budget</td>
+          <td>{{data.media.budget ?? 'Unknown'}}</td>
+        </tr>
+        <tr>
+          <td>Rating</td>
+          <td>
+            <p class="rating" *ngIf="!data.media.rating['average']">Unknown</p>
+            <p class="rating" *ngIf="data.media.rating['average']">Average: {{data.media.rating['average']}}</p>
+            <p class="rating" *ngIf="data.media.rating['kinopoisk']">Kinopoisk: {{data.media.rating['kinopoisk']}}</p>
+            <p class="rating" *ngIf="data.media.rating['tmdb']">TMDB: {{data.media.rating['tmdb']}}</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Original language</td>
+          <td>{{data.media?.originalLanguage ?? 'Unknown'}}</td>
+        </tr>
+        <tr>
+          <td>IMDB ID</td>
+          <td>{{data.media?.imdbId ?? 'Unknown'}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button (click)="close()" color="primary">Close</button>
+      <a *ngIf="this.data.media.links['kinopoisk']" mat-stroked-button href="{{this.data.media.links['kinopoisk']}}"
+         target="_blank">
+        <mat-icon>videocam</mat-icon>
+        Kinopoisk
+      </a>
+      <a *ngIf="this.data.media.links['tmdb']" mat-stroked-button href="{{this.data.media.links['tmdb']}}"
+         target="_blank">
+        <mat-icon>videocam</mat-icon>
+        TMDB
+      </a>
+    </mat-card-actions>
+  </main>
+</mat-card>

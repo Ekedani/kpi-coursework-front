@@ -39,7 +39,7 @@ export class UsersComponent {
   kickUser(id: string | undefined) {
     if (id) {
       this.usersService.deleteUserById(id).subscribe(res => {
-
+        this.getUsers();
       });
     }
   }

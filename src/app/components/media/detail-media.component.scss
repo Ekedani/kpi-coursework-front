@@ -1,0 +1,45 @@
+mat-card {
+  width: 1080px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+  img {
+    object-fit: cover;
+    width: 30%;
+    max-height: 90%;
+  }
+  main {
+    width: 70%;
+
+    table {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+
+      td, th {
+        padding: 8px;
+      }
+
+      .genre {
+        margin-right: 5px;
+        border-radius: 10px;
+        padding: 2px;
+        color: #fff;
+        background-color: #673ab7;
+      }
+    }
+  }
+
+  mat-card-actions{
+    display: flex;
+    justify-content: center;
+    button, a {
+      margin: 5px;
+      width: 170px;
+    }
+  }
+}
+

@@ -1,0 +1,28 @@
+<div *ngIf="userIsAdmin()" class="add-cinema-form">
+  <button mat-raised-button color="primary" (click)="addCinema()">Add New</button>
+</div>
+<div class="search-results" *ngIf="total">
+  <pagination-controls id="cinemas"
+                       (pageChange)="handlePageChange($event)"
+                       [responsive]="true">
+  </pagination-controls>
+  <mat-card *ngFor="let cinema of cinemas |
+  paginate: { id: 'cinemas', itemsPerPage: 20, currentPage: page,  totalItems: total }">
+    <img mat-card-image src="{{cinema.picture}}" onerror="this.src='./assets/images/noimage.jpg';">
+    <div class="search-info">
+      <mat-card-header>
+        <mat-card-title>
+          {{cinema.name}}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{cinema.description}}</p>
+        <a mat-stroked-button href="{{cinema.link}}">Link</a>
+      </mat-card-content>
+    </div>
+    <mat-card-actions>
+      <button mat-stroked-button color="primary" (click)="deleteCinema(cinema.id)" *ngIf="userIsAdmin()">Delete</button>
+      <button mat-stroked-button color="primary" (click)="editCinema(cinema)" *ngIf="userIsAdmin()">Edit</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

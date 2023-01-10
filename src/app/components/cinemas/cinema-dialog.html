@@ -1,0 +1,24 @@
+<div mat-dialog-content class="cinema-form">
+  <div class="picture">
+    <input (change)="onFileChange($event)" type="file" id="picture" name="picture" accept="image/jpeg"/>
+    <label for="picture" class="picture-label"><mat-icon> insert_photo</mat-icon> Click to upload</label>
+  </div>
+  <div class="info">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="data.name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="data.description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Link</mat-label>
+      <input matInput [(ngModel)]="data.link">
+    </mat-form-field>
+    <div class="actions">
+      <button mat-flat-button color="primary" [mat-dialog-close]="data">Save</button>
+      <button mat-flat-button color="primary" (click)="close()">Cancel</button>
+    </div>
+  </div>
+</div>

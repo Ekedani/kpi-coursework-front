@@ -3,13 +3,14 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {StorageService} from "./storage.service";
 import {deleteFalsyValues} from "../shared/helpers/delete-falsy-values";
 import {User} from "../shared/models/user.model";
+import {environment} from "../../enviroments/enviroment";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UsersService {
-  private USERS_API: string = `${'http://localhost:3000'}/api/users`;
+  private USERS_API: string = `${environment.API_HOST}/api/users`;
 
   constructor(private http: HttpClient, private storage: StorageService) {
   }

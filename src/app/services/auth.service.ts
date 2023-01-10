@@ -3,13 +3,14 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {StorageService} from "./storage.service";
 import {deleteFalsyValues} from "../shared/helpers/delete-falsy-values";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {environment} from "../../enviroments/enviroment";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  private AUTH_API: string = `${'http://localhost:3000'}/api/auth`;
+  private AUTH_API: string = `${environment.API_HOST}/api/auth`;
   private jwtHelper = new JwtHelperService();
 
   constructor(

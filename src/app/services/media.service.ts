@@ -4,12 +4,13 @@ import {StorageService} from "./storage.service";
 import {deleteFalsyValues} from "../shared/helpers/delete-falsy-values";
 import {Media} from "../shared/models/media.model";
 import {DetailedMedia} from "../shared/models/detailed-media";
+import {environment} from "../../enviroments/enviroment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaService {
-  private MEDIA_API: string = `${'http://localhost:3000'}/api/media`;
+  private MEDIA_API: string = `${environment.API_HOST}/api/media`;
 
   constructor(private http: HttpClient, private storage: StorageService) {
   }

@@ -28,7 +28,7 @@
         </tr>
         <tr>
           <td>Budget</td>
-          <td>{{data.media.budget ?? 'Unknown'}}</td>
+          <td>{{data.media.budget ?? 'Unknown'}} <span *ngIf="data.media.budget">$</span></td>
         </tr>
         <tr>
           <td>Rating</td>

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {StorageService} from "./storage.service";
 import {deleteFalsyValues} from "../shared/helpers/delete-falsy-values";
 import {Cinema} from "../shared/models/cinema.model";
+import {environment} from "../../enviroments/enviroment";
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import {Cinema} from "../shared/models/cinema.model";
 })
 
 export class CinemasService {
-  private CINEMAS_API: string = `${'http://localhost:3000'}/api/cinemas`
+  private CINEMAS_API: string = `${environment.API_HOST}/api/cinemas`
 
   constructor(private http: HttpClient, private storage: StorageService) {
   }
